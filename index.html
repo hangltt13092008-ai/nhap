@@ -1,517 +1,115 @@
-<!doctype html>
 <html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReciPAT</title>
-<style>
-/* ========== BASE (từ code cũ) ========== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-    color: #03045E;
-}
+ <head>
+  <meta charset="UTF-8">
+  <title>trang chủ</title>
+  <link rel="stylesheet" href="trangchủ.css">
+  <link rel="stylesheet" href="trangchủ-corlor.css">
+ </head>
+ <body>
+  <header>
+    <img src="./IMG/.png" width="70"/>
+    <h1>SUGAR LAB</h1>
+  </header>
 
-body {
-    background-image: url('nền tc.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center;
-}
+<h4>Thực đơn của nhóm:</h4>
 
-/* HEADER (giữ chỗ nếu sau cần) */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 60px;
-}
-
-/* HERO */
-.hero {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 220px;
-    align-items: center;
-    padding: 60px;
-    position: relative;
-}
-
-.hero-text {
-    max-width: 420px;
-}
-
-.hero-text h1 {
-    font-size: 64px;
-    line-height: 1;
-    margin: 15px 0;
-}
-
-/* make hero image responsive without changing layout */
-.hero-image img {
-    max-width: 200px;
-    width: 100%;
-    height: auto;
-    border-radius: 0 50px 50px 50px;
-    box-shadow: -20px -20px 30px #90E0EF;
-}
-
-/* HERO-BG: vùng ảnh (đã chỉnh để chuyển bằng JS) */
-.hero-bg {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 500px;
-    height: 500px;
-    background: #90E0EF;
-    border-radius: 0 0 0 100px;
-    overflow: hidden;
-    z-index: 0;
-    box-shadow: -15px 15px 15px #90E0EF;
-}
-
-/* tất cả ảnh chồng lên nhau; JS điều khiển class .active */
-.hero-bg img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    -webkit-transition: opacity 0.8s ease;
-    pointer-events: none;
-}
-
-.hero-bg img.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* nút chuyển ảnh (nhỏ gọn, không phá layout) */
-.hero-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.45);
-    color: #fff;
-    border: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    z-index: 6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.015s ease;
-}
-
-.hero-btn.prev {
-    left: 12px;
-}
-
-.hero-btn.next {
-    right: 12px;
-}
-
-.hero-btn:hover {
-    background: rgba(0,0,0,0.7);
-}
-
-/* MENU (giữ nguyên cấu trúc) */
-.menu {
-    padding: 80px 60px;
-}
-
-.menu h2 {
-    font-size: 36px;
-    margin-bottom: 40px;
-}
-
-/* responsive grid: desktop 4, tablet 2, mobile 1 */
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 50px;
-}
-
-.card {
-    background: #00B4D8;
-    border-radius: 100px;
-    padding: 20px;
-    text-align: center;
-    color: #00B4D8;
-    box-shadow: 0px 0px 15px 5px #90E0EF;
-}
-
-.card img {
-    width: 100%;
-    border-radius: 100px;
-    margin-bottom: 15px;
-    height: auto;
-    object-fit: cover;
-}
-
-.card span {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: bold;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    font-size: 14px;
-}
-
-.footer {
-    background-color: #90E0EF;
-    color: white;
-    padding: 40px 60px;
-}
-
-/* make footer flexible on small screens without changing content order */
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1200px;
-    margin: auto;
-    gap: 24px;
-    flex-wrap: nowrap; /* default: three columns side by side on wide screens */
-}
-
-.footer-column {
-    width: 22%;
-    flex: 1 1 30%;
-    min-width: 180px;
-}
-
-.footer-column h4 {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.footer-column ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.footer-column ul li {
-    margin-bottom: 8px;
-}
-
-.footer-column ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 13px;
-}
-
-.footer-column ul li a:hover {
-    text-decoration: underline;
-}
-
-/* Phần logo */
-.footer-brand {
-    text-align: right;
-    width: 100%;
-    min-width: 120px;
-}
-
-.footer-brand img {
-    width: 80px;
-    margin-bottom: 10px;
-}
-
-.footer-brand p {
-    font-size: 13px;
-    font-style: italic;
-}
-
-.img-logo {
-    width: 30%;
-    height: 30%;
-    object-fit: cover;
-    border-radius: 30%;
-}
-
-/* ========== RESPONSIVE ADJUSTMENTS ========== */
-
-/* medium screens (tablet) */
-@media (max-width: 1024px) {
-    .hero {
-        padding: 40px;
-        margin-bottom: 160px;
-    }
-    .hero-bg {
-        width: 420px;
-        height: 420px;
-    }
-    .hero-text h1 { font-size: 48px; }
-    .menu { padding: 60px 40px; }
-    .menu-grid { gap: 32px; grid-template-columns: repeat(3, 1fr); }
-    .footer-container { gap: 18px; }
-}
-
-/* small screens (mobile phones) */
-/* keep the general layout order but make everything scale / wrap nicely */
-@media (max-width: 768px) {
-
-    /* HERO: keep two-column feeling but shrink */
-    .hero {
-        padding: 24px;
-        margin-bottom: 80px;
-        align-items: flex-start;
-    }
-    .hero-text { max-width: 260px; }
-    .hero-text h1 { font-size: 32px; margin-bottom: 8px; }
-    .hero-text .desc { font-size: 14px; line-height: 1.3; }
-
-    /* hero image and hero-bg smaller but still positioned right */
-    .hero-image img { max-width: 140px; }
-    .hero-bg {
-        width: 280px;
-        height: 280px;
-        right: 8px;
-        top: 8px;
-        border-radius: 0 0 0 60px;
-    }
-
-    /* hide hero buttons on small as before */
-    .hero-btn { display: none; }
-
-    /* MENU: from 4 to 2 columns so card sizes are reasonable */
-    .menu { padding: 40px 20px; }
-    .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-    .card {
-        border-radius: 28px;
-        padding: 14px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    }
-
-    /* FOOTER: allow wrapping so columns don't get squished */
-    .footer {
-        padding: 30px 18px;
-    }
-    .footer-container {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 18px;
-    }
-    .footer-column {
-        flex: 1 1 45%;
-        width: auto;
-        min-width: 140px;
-    }
-    .footer-brand {
-        order: 4;
-        text-align: center;
-        width: 100%;
-    }
-    .footer-column h4 { font-size: 13px; }
-    .footer-column ul li a { font-size: 13px; }
-}
-
-/* very small screens: 1 column menu */
-@media (max-width: 480px) {
-    .menu-grid { grid-template-columns: repeat(1, 1fr); }
-    .hero-bg { display: none; } /* optionally hide big bg for very small devices to keep layout clean */
-    .hero-image img { max-width: 120px; }
-    .hero-text { max-width: 100%; }
-    .footer-column { flex: 1 1 100%; }
-}
-
-/* small polish: ensure images never overflow */
-img { max-width: 100%; height: auto; display: block; }
-</style>
-</head>
-
-<body>
-
-<section class="hero">
-    <div class="hero-text">
-      <div class="hero-image">
-        <img src="logo.jpg" alt="logo ReciPAT">
-      </div>
-
-      <h1>ReciPAT</h1>
-      <p class="desc">
-        Cùng nhau khám phá những hương vị đã tạo nên bản sắc của thế giới,
-        nơi mỗi món ăn không chỉ là sự kết hợp của nguyên liệu mà còn là một câu chuyện văn hoá,
-        lịch sử và cảm xúc được truyền tải tinh tế qua từng hương vị.
-      </p>
-
-      <!-- ==== HERO BG (ảnh chồng) + nút điều khiển ==== -->
-      <div class="hero-bg" aria-hidden="false">
-        <!-- Lưu ý: ảnh thứ nhất sẽ được active via JS ở lần load -->
-        <img src="hình 1 tc.jpg" alt="Hình 1 ReciPAT">
-        <img src="hình 2 tc.jpg" alt="Hình 2 ReciPAT">
-        <img src="hình 3 tc.jpg" alt="Hình 3 ReciPAT">
-        <img src="hình 4 tc.jpg" alt="Hình 4 ReciPAT">
-        <img src="hình 5 tc.jpg" alt="Hình 5 ReciPAT">
-        <img src="hình 6 tc.jpg" alt="Hình 6 ReciPAT">
-
-        <!-- nút prev/next -->
-        <button class="hero-btn prev" aria-label="Ảnh trước" title="Ảnh trước">◀</button>
-        <button class="hero-btn next" aria-label="Ảnh sau" title="Ảnh sau">▶</button>
-      </div>
-      <!-- ==== END HERO BG ==== -->
-
-    </div>
-</section>
-
-<section class="menu">
-    <h2>Công thức mới</h2>
-
-    <div class="menu-grid">
-        <div class="card">
-          <a href="Phở bò.html">
-            <img src="phở tc.jpg" alt="Phở bánh">
-            <br>
-            <b style="color: #FFFFFF;">Phở bò </b> <br>
-            <b style="color: #FFFFFF;">Việt Nam </b>
-          </a>
-        </div>
-
-        <div class="card">
-          <a href="Pad thai.html">
-            <img src="pad thai tc.jpg" alt="Pad Thai">
-            <br>
-            <b style="color: #FFFFFF;">Pad Thai </b> <br>
-            <b style="color: #FFFFFF;"> Thái Lan</b>
-          </a>
-        </div>
-
-        <div class="card">
-          <a href="Sushi .html">
-            <img src="sushi tc.jpg" alt="Sushi">
-            <br>
-            <b style="color: #FFFFFF;">Sushi </b> <br>
-            <b style="color: #FFFFFF;">Nhật Bản </b>
-          </a>
-        </div>
-
-        <div class="card">
-          <a href="Pizza.html">
-            <img src="pizza tc.jpg" alt="Pizza Margherita">
-            <br>
-            <b style="color: #FFFFFF;"> Pizza Margherita</b> <br>
-            <b style="color: #FFFFFF;">Ý </b>
-          </a>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-container">
-
-    <!-- Cột 1 -->
-    <div class="footer-column">
-        <h4>Thành viên nhóm</h4>
-        <ul>
-            <li><a href="#">Nguyễn Thiện Phúc</a></li>
-            <li><a href="#">Hồ Thị Phương ThúyThúy</a></li>
-            <li><a href="#">Bùi Ngọc Minh Anh</a></li>
-            <li><a href="#">Phan Tuấn Phát</a></li>
-        </ul>
-    </div>
-
-    <!-- Cột 2 -->
-    <div class="footer-column">
-        <h4>Các món ăn</h4>
-        <ul>
-            <li><a href="#">Phở Bò-Việt Nam</a></li>
-            <li><a href="#">Pad Thái-Thái Lan</a></li>
-            <li><a href="#">Sushi-Nhật Bản</a></li>
-            <li><a href="#">Pizza Margherita-Ý </a></li>
-        </ul>
-    </div>
-
-    <!-- Cột 3 -->
-    <div class="footer-column">
-        <h4>Nhiệm vụ</h4>
-        <ul>
-            <li><a href="#">Viết Code html, css: Nguyễn Thiện Phúc<br>Phan Tuấn Phát</a></li>
-            <li><a href="#">Trang trí trang: Hồ Thị Phương ThúyThúy</a></li>
-            <li><a href="#">Soạn nội dung, hình ảnh: Bùi Ngọc Minh Anh</a></li>
-        </ul>
-    </div>
-
-    <!-- Logo bên phải -->
-    <div class="footer-brand">
-      <img class="img-logo" src="logo.jpg" alt="Logo nhóm">
-    </div>
-
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Đường mật mía</h3>
+    <p></p>
   </div>
-</footer>
+  <img src="">
+</a>
 
-<!-- ========== JS: quản lý slider (auto + nút) ========== -->
-<script>
-(function(){
-  const imgs = Array.from(document.querySelectorAll('.hero-bg img'));
-  const btnPrev = document.querySelector('.hero-btn.prev');
-  const btnNext = document.querySelector('.hero-btn.next');
-  if (!imgs.length) return;
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Lồng đèn ông sao</h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  let current = 0;
-  let timer = null;
-  const AUTO_MS = 4000; // 4s
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Kẹo nougat</h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  function show(index) {
-    index = (index + imgs.length) % imgs.length;
-    imgs.forEach((im, i) => {
-      im.classList.toggle('active', i === index);
-      // for accessibility: hide non-active from screen readers
-      im.setAttribute('aria-hidden', i === index ? 'false' : 'true');
-    });
-    current = index;
-  }
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Sữa tươi trân châu đường đen </h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  function startAuto() {
-    stopAuto();
-    timer = setInterval(() => {
-      show(current + 1);
-    }, AUTO_MS);
-  }
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Bánh gạo nếp</h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  function stopAuto() {
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-    }
-  }
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Kẹo dẻo </h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  // nút
-  btnPrev && btnPrev.addEventListener('click', () => {
-    show(current - 1);
-    startAuto();
-  });
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Kẹo đường</h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  btnNext && btnNext.addEventListener('click', () => {
-    show(current + 1);
-    startAuto();
-  });
+<a href=".html" class="food-card">
+  <div class="food-text">
+    <h3>Cơm cháy</h3>
+    <p></p>
+  </div>
+  <img src="">
+</a>
 
-  // khởi tạo: hiện ảnh đầu
-  show(0);
-  startAuto();
+  <footer>
+    <h2>Tên thành viên nhóm:</h2>
+    <table class="member-table">
+    <tr>
+      <td>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </td>
 
-  // nếu muốn: tạm dừng khi chuột vào hero (không bắt buộc)
-  const heroBg = document.querySelector('.hero-bg');
-  heroBg.addEventListener('mouseenter', stopAuto);
-  heroBg.addEventListener('mouseleave', startAuto);
-})();
-</script>
+      <td>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </td>
 
-</body>
+      <td>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+  </footer>
+ </body>
 </html>
